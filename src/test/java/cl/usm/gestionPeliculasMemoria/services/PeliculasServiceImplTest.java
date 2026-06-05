@@ -36,13 +36,7 @@ class PeliculasServiceImplTest {
                 new Comentario("Juan", "Muy buena película")
         };
 
-        Pelicula pelicula = new Pelicula(
-                "1",
-                "Cars",
-                "Nolan",
-                null,
-                comentarios
-        );
+        Pelicula pelicula = new Pelicula("1", "Cars", "Nolan", null, comentarios);
 
         when(peliculasRepository.insert(any(Pelicula.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
@@ -58,13 +52,7 @@ class PeliculasServiceImplTest {
     @Test
     void createPelicula_Ex() {
 
-        Pelicula pelicula = new Pelicula(
-                "1",
-                "Cars",
-                "Nolan",
-                null,
-                null
-        );
+        Pelicula pelicula = new Pelicula("1", "Cars", "Nolan", null, null);
 
         when(peliculasRepository.insert(any(Pelicula.class)))
                 .thenThrow(new RuntimeException("Error"));

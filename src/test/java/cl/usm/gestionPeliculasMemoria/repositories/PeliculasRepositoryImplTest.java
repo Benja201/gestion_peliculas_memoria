@@ -20,13 +20,7 @@ class PeliculasRepositoryImplTest {
     @Test
     void insert() {
 
-        Pelicula pelicula = new Pelicula(
-                "1",
-                "Cars",
-                "Nolan",
-                null,
-                null
-        );
+        Pelicula pelicula = new Pelicula("1", "Cars", "Nolan", null, null);
 
         Pelicula resultado = repository.insert(pelicula);
 
@@ -38,57 +32,20 @@ class PeliculasRepositoryImplTest {
     @Test
     void insert_ShouldThrowException_WhenIdIsNull() {
 
-        Pelicula pelicula = new Pelicula(
-                null,
-                "Cars",
-                "Nolan",
-                null,
-                null
-        );
+        Pelicula pelicula = new Pelicula(null, "Cars", "Nolan", null, null);
 
-        IllegalArgumentException exception =
-                assertThrows(
-                        IllegalArgumentException.class,
-                        () -> repository.insert(pelicula)
-                );
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> repository.insert(pelicula));
 
-        assertEquals(
-                "El ID de la pelicula no puede ser nulo",
-                exception.getMessage()
-        );
+        assertEquals("El ID de la pelicula no puede ser nulo", exception.getMessage());
     }
 
     @Test
     void insert_ShouldThrowException_WhenIdAlreadyExists() {
-
-        Pelicula pelicula1 = new Pelicula(
-                "1",
-                "Cars",
-                "Nolan",
-                null,
-                null
-        );
-
-        Pelicula pelicula2 = new Pelicula(
-                "1",
-                "Avatar",
-                "James Cameron",
-                null,
-                null
-        );
-
+        Pelicula pelicula1 = new Pelicula("1", "Cars", "Nolan", null, null);
+        Pelicula pelicula2 = new Pelicula("1", "Avatar", "James Cameron", null, null);
         repository.insert(pelicula1);
-
-        IllegalArgumentException exception =
-                assertThrows(
-                        IllegalArgumentException.class,
-                        () -> repository.insert(pelicula2)
-                );
-
-        assertEquals(
-                "La pelicula con ID 1 ya existe",
-                exception.getMessage()
-        );
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> repository.insert(pelicula2));
+        assertEquals("La pelicula con ID 1 ya existe", exception.getMessage());
     }
 
     @Test
@@ -125,13 +82,7 @@ class PeliculasRepositoryImplTest {
     @Test
     void findById() {
 
-        Pelicula pelicula = new Pelicula(
-                "1",
-                "Cars",
-                "Nolan",
-                null,
-                null
-        );
+        Pelicula pelicula = new Pelicula("1", "Cars", "Nolan", null, null);
 
         repository.insert(pelicula);
 
@@ -144,19 +95,9 @@ class PeliculasRepositoryImplTest {
 
     @Test
     void findById_ShouldIgnoreCase() {
-
-        Pelicula pelicula = new Pelicula(
-                "ABC123",
-                "Cars",
-                "Nolan",
-                null,
-                null
-        );
-
+        Pelicula pelicula = new Pelicula("ABC123", "Cars", "Nolan", null, null);
         repository.insert(pelicula);
-
         Pelicula resultado = repository.findById("abc123");
-
         assertNotNull(resultado);
         assertEquals("ABC123", resultado.getId());
     }
@@ -165,7 +106,6 @@ class PeliculasRepositoryImplTest {
     void findById_ShouldReturnNull_WhenIdIsNull() {
 
         Pelicula resultado = repository.findById(null);
-
         assertNull(resultado);
     }
 
@@ -173,7 +113,6 @@ class PeliculasRepositoryImplTest {
     void findById_ShouldReturnNull_WhenMovieDoesNotExist() {
 
         Pelicula resultado = repository.findById("999");
-
         assertNull(resultado);
     }
 }
